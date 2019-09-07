@@ -10,7 +10,7 @@ namespace RGBToGrayScale
     {
         static void Main(string[] args)
         {
-            String path = "C:\\Users\\Milton\\Documents\\MATLAB\\kaho.jpg";
+            String path = "PATH a donde se encuentra el archivo que se desea convertir a escala de grises";
             FileInfo file = new FileInfo(path);
             if (ExistsFormat(file.Extension))
                 ToGrayScaleIterativeMethod(path, file);
