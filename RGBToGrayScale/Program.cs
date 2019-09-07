@@ -47,6 +47,43 @@ namespace RGBToGrayScale
         }
 
         /// <summary>
+        /// Metodo que convierte a escala de grises una imagen utilizando una matriz de color
+        /// </summary>
+        /// <param name="path">Ruta del archivo que se desea convertir a escala de grises</param>
+        /// <param name="file">Propiedades del archivo</param>
+        public static void ToGrayScaleColorMatrixMethod(String path, FileInfo file)
+        {
+            Bitmap bmp = new Bitmap(path);
+            Console.WriteLine("Iniciando procesamiento...");
+
+            Bitmap newBMP = new Bitmap(bmp.Width, bmp.Height);
+            Graphics g = Graphics.FromImage(newBMP);
+
+            ColorMatrix colorMatrix = new ColorMatrix(
+                new float[][]
+                {
+                    new float[] {.3f, .3f, .3f, 0, 0},
+                    new float[] {.59f, .59f, .59f, 0, 0},
+                    new float[] {.11f, .11f, .11f, 0, 0},
+                    new float[] {0, 0, 0, 1, 0},
+                    new float[] {0, 0, 0, 0, 1}
+                });
+
+            ImageAttributes attributes = new ImageAttributes();
+            attributes.SetColorMatrix(colorMatrix);
+
+            g.DrawImage(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, bmp.Width, bmp.Height, GraphicsUnit.Pixel, attributes);
+            g.Dispose();
+
+            Console.WriteLine("Procesamiento terminado...");
+            Console.WriteLine("Guardando archivo en el escritorio...");
+            String name = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + file.Name;
+            Console.WriteLine(name);
+            newBMP.Save(name, Format(file.Extension));
+            Console.WriteLine("Archivo guardado en el escritorio...");
+        }
+
+        /// <summary>
         /// Establece el formato en el que se guardará la imagen dependiendo de la extensión del archivo original
         /// </summary>
         /// <param name="format">Extensión del archivo original</param>
