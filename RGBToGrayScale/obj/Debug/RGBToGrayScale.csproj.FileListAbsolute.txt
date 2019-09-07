@@ -1,0 +1,7 @@
+C:\Users\Milton\source\repos\RGBToGrayScale\RGBToGrayScale\bin\Debug\RGBToGrayScale.exe.config
+C:\Users\Milton\source\repos\RGBToGrayScale\RGBToGrayScale\bin\Debug\RGBToGrayScale.exe
+C:\Users\Milton\source\repos\RGBToGrayScale\RGBToGrayScale\bin\Debug\RGBToGrayScale.pdb
+C:\Users\Milton\source\repos\RGBToGrayScale\RGBToGrayScale\obj\Debug\RGBToGrayScale.csprojAssemblyReference.cache
+C:\Users\Milton\source\repos\RGBToGrayScale\RGBToGrayScale\obj\Debug\RGBToGrayScale.csproj.CoreCompileInputs.cache
+C:\Users\Milton\source\repos\RGBToGrayScale\RGBToGrayScale\obj\Debug\RGBToGrayScale.exe
+C:\Users\Milton\source\repos\RGBToGrayScale\RGBToGrayScale\obj\Debug\RGBToGrayScale.pdb
