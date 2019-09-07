@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RGBToGrayScale
 {
@@ -10,8 +10,83 @@ namespace RGBToGrayScale
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hola mundo");
-            Console.ReadKey();
+            String path = "C:\\Users\\Milton\\Documents\\MATLAB\\kaho.jpg";
+            FileInfo file = new FileInfo(path);
+            if (ExistsFormat(file.Extension))
+                ToGrayScaleIterativeMethod(path, file);
+            else
+                Console.WriteLine("El archivo no es compatible.");
+            Console.WriteLine("Presione una tecla para salir...");
+            Console.ReadKey();            
+        }
+
+        /// <summary>
+        /// Metodo que convierte a escala de grises una imagen utilizando iteraciones
+        /// </summary>
+        /// <param name="path">Ruta del archivo que se desea convertir a escala de grises</param>
+        /// <param name="file">Propiedades del archivo</param>
+        public static void ToGrayScaleIterativeMethod(String path, FileInfo file)
+        {
+            Bitmap bmp = new Bitmap(path);
+            Console.WriteLine("Iniciando procesamiento...");
+            for(int x = 0; x < bmp.Width; x++)
+            {
+                for(int y = 0; y < bmp.Height; y++)
+                {
+                    Color pixel = bmp.GetPixel(x, y);
+                    int gray = (int)((pixel.R * .3) + (pixel.G * .59) + (pixel.B * .11));
+                    bmp.SetPixel(x, y, Color.FromArgb(gray, gray, gray));
+                }
+            }
+            Console.WriteLine("Procesamiento terminado...");
+            Console.WriteLine("Guardando archivo en el escritorio...");
+            String name = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\" + file.Name;
+            Console.WriteLine(name);
+            bmp.Save(name, Format(file.Extension));
+            Console.WriteLine("Archivo guardado en el escritorio...");
+        }
+
+        /// <summary>
+        /// Establece el formato en el que se guardará la imagen dependiendo de la extensión del archivo original
+        /// </summary>
+        /// <param name="format">Extensión del archivo original</param>
+        /// <returns>Retorna el formato en el que se guardará la nueva imagen</returns>
+        public static ImageFormat Format(String format)
+        {
+            if(String.IsNullOrEmpty(format) || String.IsNullOrWhiteSpace(format))
+            {
+                throw new ArgumentException("No se puede determinar la extensión del archivo", format);
+            }
+            switch (format.ToLower())
+            {
+                case (".jpg"):
+                case (".jpeg"):
+                    return ImageFormat.Jpeg;
+                case (".png"):
+                    return ImageFormat.Png;
+                case (".bmp"):
+                    return ImageFormat.Bmp;
+                case (".ico"):
+                    return ImageFormat.Icon;
+                case (".tif"):
+                case (".tiff"):
+                    return ImageFormat.Tiff;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
+        /// Metodo que verifica si la extensión del archivo es una imagen
+        /// </summary>
+        /// <param name="format">Extensión del archivo que se desea comprobar</param>
+        /// <returns>Retorna verdadero o falso dependiendo si la extensión propocionada corresponde a una imagen</returns>
+        public static bool ExistsFormat(String format)
+        {
+            string[] formats = { ".jpg", ".jpeg", ".png", ".ico", ".bmp", ".tiff", ".tif" };
+            if (formats.Contains(format.ToLower()))
+                return true;
+            return false;
         }
     }
 }
