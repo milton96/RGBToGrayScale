@@ -1,1 +1,3 @@
 .vs/
+RGBToGrayScale/bin/Debug/*.exe
+*/obj/Debug/*.exe
